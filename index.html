@@ -1,126 +1,195 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kas HMPS BD</title>
+
+    <title>Konfirmasi Pembayaran Kas Logisdrum</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
 </head>
+
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <!-- HALAMAN 1 -->
-    <section id="page1" class="card">
+        <!-- ================= HALAMAN 1 ================= -->
 
-        <h1>Kas HMPS BD</h1>
+        <section id="page1" class="card">
 
-        <p>Silakan pilih nama Anda</p>
+            <div class="logo">
 
-        <select id="nama">
-            <option value="">-- Pilih Nama --</option>
+                💰
 
-            <option>Muhammad Adnin Mubarok</option>
-            <option>Sofyan Abdilah Wijaya</option>
-            <option>Rizky</option>
-            <option>Bagas</option>
-            <option>Fajar</option>
-            <option>Adit</option>
+            </div>
 
-        </select>
+            <h1>Kas Logisdrum</h1>
 
-        <button id="nextBtn">
-            Next →
-        </button>
+            <p>
 
-    </section>
+                Silakan pilih nama Anda untuk melakukan konfirmasi pembayaran kas.
 
-    <!-- HALAMAN 2 -->
-    <section id="page2" class="card hidden">
+            </p>
 
-        <h2>Konfirmasi Pembayaran</h2>
+            <select id="nama">
 
-        <div class="info">
+                <option value="">-- Pilih Nama --</option>
 
-            <label>Nama</label>
+                <option>Fadli</option>
 
-            <div id="namaTerpilih" class="box"></div>
+                <option>Ibal</option>
 
-        </div>
+                <option>Pai</option>
 
-        <div class="rekening">
+                <option>Asam</option>
 
-            <p>Transfer ke</p>
+                <option>Rapli</option>
 
-            <h3>BANK BCA</h3>
+                <option>Adnin</option>
 
-            <h2 id="rekening">
-                1234567890
-            </h2>
+            </select>
 
-            <p>a.n HMPS Bisnis Digital</p>
+            <button id="nextBtn">
 
-            <button id="copyBtn">
-                📋 Salin Nomor Rekening
+                Next →
+
             </button>
 
-        </div>
+        </section>
 
-        <div class="upload">
+        <!-- ================= HALAMAN 2 ================= -->
 
-            <label>Upload Bukti Transfer</label>
+        <section id="page2" class="card hidden">
 
-            <input
-                type="file"
-                id="bukti"
-                accept="image/*">
+            <h2>Konfirmasi Pembayaran</h2>
 
-        </div>
+            <div class="info">
 
-        <div class="checkbox">
+                <label>Nama Anggota</label>
 
-            <input
-                type="checkbox"
-                id="check">
+                <div class="box" id="namaTerpilih"></div>
 
-            <label for="check">
+            </div>
 
-                Saya sudah melakukan transfer
+            <div class="rekening">
 
-            </label>
+                <div class="bankLogo">
 
-        </div>
+                    🏦
 
-        <button id="submitBtn">
+                </div>
 
-            Kirim
+                <small>Transfer ke</small>
 
-        </button>
+                <h3>GOPAY</h3>
 
-    </section>
+                <h2 id="rekening">
 
-    <!-- HALAMAN BERHASIL -->
+                    082223858540
 
-    <section id="success" class="card hidden">
+                </h2>
 
-        <h1>✅</h1>
+                <p>
 
-        <h2>Berhasil</h2>
+                    a.n Muhammad Adnin Mubarok
 
-        <p>
+                </p>
 
-            Terima kasih.
+                <button id="copyBtn">
 
-            Konfirmasi pembayaran berhasil dikirim.
+                    📋 Salin Nomor Rekening
 
-        </p>
+                </button>
 
-    </section>
+            </div>
 
-</div>
+            <div class="upload">
 
-<script src="script.js"></script>
+                <label>
+
+                    Upload Bukti Transfer
+
+                </label>
+
+                <input
+
+                    type="file"
+
+                    id="bukti"
+
+                    accept="image/png,image/jpeg,image/jpg">
+
+            </div>
+
+            <div class="checkbox">
+
+                <input
+
+                    type="checkbox"
+
+                    id="check">
+
+                <label for="check">
+
+                    Saya sudah melakukan transfer.
+
+                </label>
+
+            </div>
+
+            <button id="submitBtn">
+
+                Kirim Konfirmasi
+
+            </button>
+
+        </section>
+
+        <!-- ================= SUCCESS ================= -->
+
+        <section id="success" class="card hidden">
+
+            <div class="successIcon">
+
+                ✅
+
+            </div>
+
+            <h2>
+
+                Konfirmasi Berhasil
+
+            </h2>
+
+            <p>
+
+                Terima kasih.
+
+                Bukti pembayaran Anda berhasil dikirim.
+
+            </p>
+
+            <button onclick="location.reload()">
+
+                Kembali ke Awal
+
+            </button>
+
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
