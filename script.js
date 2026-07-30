@@ -1,34 +1,35 @@
-// ===============================
-// GANTI DENGAN URL APPS SCRIPT
-// ===============================
+// ======================================
+// KONFIGURASI
+// ======================================
 
-const API_URL = "YOUR_APPS_SCRIPT_URL";
+const API_URL = "https://script.google.com/macros/s/AKfycbxUuApNsbLOHAR6VMKpCkw7FXmN2uXkAO7Uso1FoPw4BJUQ7Q892p5fsJDRHrqAnpO5mQ/exec";
 
-
-// ===============================
+// ======================================
 // ELEMENT
-// ===============================
+// ======================================
 
 const page1 = document.getElementById("page1");
 const page2 = document.getElementById("page2");
 const success = document.getElementById("success");
-
-const nextBtn = document.getElementById("nextBtn");
-const submitBtn = document.getElementById("submitBtn");
-const copyBtn = document.getElementById("copyBtn");
 
 const nama = document.getElementById("nama");
 const namaTerpilih = document.getElementById("namaTerpilih");
 
 const rekening = document.getElementById("rekening");
 
-const bukti = document.getElementById("bukti");
+const nextBtn = document.getElementById("nextBtn");
+const copyBtn = document.getElementById("copyBtn");
+const submitBtn = document.getElementById("submitBtn");
 
+const bukti = document.getElementById("bukti");
 const check = document.getElementById("check");
 
+// ======================================
+// PREVIEW GAMBAR
+// ======================================
 
-// Preview gambar
-let preview = document.createElement("img");
+const preview = document.createElement("img");
+preview.id = "preview";
 preview.style.width = "100%";
 preview.style.marginTop = "15px";
 preview.style.borderRadius = "12px";
@@ -36,145 +37,187 @@ preview.style.display = "none";
 
 bukti.parentNode.appendChild(preview);
 
-
-// ===============================
+// ======================================
 // NEXT
-// ===============================
+// ======================================
 
 nextBtn.addEventListener("click", () => {
 
-    if (nama.value == "") {
-
+    if (nama.value === "") {
         alert("Silakan pilih nama terlebih dahulu.");
-
         return;
-
     }
 
-    namaTerpilih.innerText = nama.value;
+    namaTerpilih.textContent = nama.value;
 
     page1.classList.add("hidden");
-
     page2.classList.remove("hidden");
 
 });
 
-
-// ===============================
+// ======================================
 // COPY REKENING
-// ===============================
+// ======================================
 
 copyBtn.addEventListener("click", async () => {
 
-    await navigator.clipboard.writeText(rekening.innerText);
+    try {
 
-    copyBtn.innerText = "✅ Nomor Rekening Disalin";
+        await navigator.clipboard.writeText(rekening.textContent);
 
-    setTimeout(() => {
+        copyBtn.textContent = "✅ Nomor rekening berhasil disalin";
 
-        copyBtn.innerText = "📋 Salin Nomor Rekening";
+        setTimeout(() => {
 
-    },2000);
+            copyBtn.textContent = "📋 Salin Nomor Rekening";
+
+        }, 2000);
+
+    } catch {
+
+        alert("Browser tidak mendukung fitur salin otomatis.");
+
+    }
 
 });
 
+// ======================================
+// PREVIEW FILE
+// ======================================
 
-// ===============================
-// PREVIEW GAMBAR
-// ===============================
+bukti.addEventListener("change", function () {
 
-bukti.addEventListener("change",(e)=>{
+    const file = this.files[0];
 
-    const file = e.target.files[0];
+    if (!file) {
 
-    if(!file) return;
+        preview.style.display = "none";
+        return;
+
+    }
+
+    // Validasi tipe file
+
+    const allowed = ["image/jpeg", "image/png", "image/jpg"];
+
+    if (!allowed.includes(file.type)) {
+
+        alert("File harus berupa JPG atau PNG.");
+
+        this.value = "";
+
+        preview.style.display = "none";
+
+        return;
+
+    }
+
+    // Maksimal 5MB
+
+    if (file.size > 5 * 1024 * 1024) {
+
+        alert("Ukuran gambar maksimal 5 MB.");
+
+        this.value = "";
+
+        preview.style.display = "none";
+
+        return;
+
+    }
 
     preview.src = URL.createObjectURL(file);
-
     preview.style.display = "block";
 
 });
 
-
-// ===============================
+// ======================================
 // SUBMIT
-// ===============================
+// ======================================
 
-submitBtn.addEventListener("click", async ()=>{
+submitBtn.addEventListener("click", kirimData);
 
-    if(!check.checked){
+async function kirimData() {
 
-        alert("Centang konfirmasi transfer terlebih dahulu.");
+    if (!check.checked) {
 
-        return;
-
-    }
-
-    if(bukti.files.length==0){
-
-        alert("Upload bukti transfer.");
+        alert("Silakan centang konfirmasi transfer.");
 
         return;
 
     }
 
-    submitBtn.disabled=true;
+    if (bukti.files.length === 0) {
 
-    submitBtn.innerText="Mengirim...";
+        alert("Silakan upload bukti transfer.");
 
+        return;
 
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Mengirim...";
 
     const file = bukti.files[0];
 
     const reader = new FileReader();
 
-    reader.onload = async function(){
+    reader.onload = async function () {
 
         const base64 = reader.result.split(",")[1];
 
         const payload = {
 
-            nama:nama.value,
-
-            image:base64,
-
-            filename:file.name
+            nama: nama.value,
+            filename: file.name,
+            image: base64
 
         };
 
+        try {
 
-        try{
+            const response = await fetch(API_URL, {
 
-            const res = await fetch(API_URL,{
+                method: "POST",
 
-                method:"POST",
+                headers: {
 
-                body:JSON.stringify(payload)
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(payload)
 
             });
 
-            const hasil = await res.json();
+            const result = await response.json();
 
-            page2.classList.add("hidden");
+            if (result.success) {
 
-            success.classList.remove("hidden");
+                page2.classList.add("hidden");
+                success.classList.remove("hidden");
 
-        }
+            } else {
 
-        catch(e){
+                throw new Error("Server gagal memproses data.");
 
-            alert("Gagal mengirim data.");
-
-            console.log(e);
-
-            submitBtn.disabled=false;
-
-            submitBtn.innerText="Kirim";
+            }
 
         }
 
-    }
+        catch (err) {
+
+            console.error(err);
+
+            alert("Terjadi kesalahan saat mengirim data.");
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Kirim";
+
+        }
+
+    };
 
     reader.readAsDataURL(file);
 
-});
+}
