@@ -1,15 +1,23 @@
-/* Reset */
+/* ===========================
+   GOOGLE FONT
+=========================== */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Poppins',sans-serif;
 }
+
+/* ===========================
+   BODY
+=========================== */
 
 body{
 
-    background:#f5f7fb;
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+
+    min-height:100vh;
 
     display:flex;
 
@@ -17,13 +25,13 @@ body{
 
     align-items:center;
 
-    min-height:100vh;
-
     padding:20px;
 
 }
 
-/* Container */
+/* ===========================
+   CONTAINER
+=========================== */
 
 .container{
 
@@ -32,17 +40,21 @@ body{
 
 }
 
-/* Card */
+/* ===========================
+   CARD
+=========================== */
 
 .card{
 
-    background:white;
+    background:#ffffff;
 
-    border-radius:18px;
+    border-radius:24px;
 
-    padding:30px 25px;
+    padding:30px;
 
-    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    box-shadow:
+
+    0 15px 40px rgba(0,0,0,.15);
 
     animation:fade .35s;
 
@@ -56,23 +68,25 @@ body{
 
 @keyframes fade{
 
-    from{
+from{
 
-        opacity:0;
-        transform:translateY(20px);
-
-    }
-
-    to{
-
-        opacity:1;
-        transform:translateY(0);
-
-    }
+opacity:0;
+transform:translateY(25px);
 
 }
 
-/* Heading */
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+/* ===========================
+   TEXT
+=========================== */
 
 h1{
 
@@ -82,7 +96,7 @@ h1{
 
     color:#2563eb;
 
-    margin-bottom:10px;
+    margin-top:10px;
 
 }
 
@@ -90,7 +104,9 @@ h2{
 
     text-align:center;
 
-    margin-bottom:20px;
+    color:#1f2937;
+
+    margin-bottom:15px;
 
 }
 
@@ -98,37 +114,66 @@ h3{
 
     color:#2563eb;
 
+    margin:8px 0;
+
 }
 
 p{
 
-    color:#666;
-
     text-align:center;
 
-    margin-bottom:20px;
+    color:#6b7280;
 
-    line-height:1.5;
+    margin:18px 0;
+
+    line-height:1.6;
 
 }
 
-/* Select */
+/* ===========================
+   LOGO
+=========================== */
+
+.logo{
+
+    width:80px;
+    height:80px;
+
+    background:#eff6ff;
+
+    border-radius:50%;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:36px;
+
+}
+
+/* ===========================
+   SELECT
+=========================== */
 
 select{
 
     width:100%;
 
-    padding:14px;
+    padding:15px;
 
-    border:1px solid #ddd;
+    border-radius:14px;
 
-    border-radius:12px;
-
-    font-size:16px;
+    border:2px solid #e5e7eb;
 
     outline:none;
 
-    margin-bottom:25px;
+    font-size:15px;
+
+    transition:.3s;
 
 }
 
@@ -138,29 +183,33 @@ select:focus{
 
 }
 
-/* Button */
+/* ===========================
+   BUTTON
+=========================== */
 
 button{
 
     width:100%;
 
+    margin-top:20px;
+
     padding:15px;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:14px;
 
     background:#2563eb;
 
     color:white;
 
-    font-size:16px;
+    font-size:15px;
 
-    font-weight:bold;
+    font-weight:600;
 
     cursor:pointer;
 
-    transition:.25s;
+    transition:.3s;
 
 }
 
@@ -174,91 +223,95 @@ button:hover{
 
 button:disabled{
 
-    background:#bdbdbd;
+    background:#9ca3af;
 
     cursor:not-allowed;
 
 }
 
-/* Info */
+/* ===========================
+   INFO BOX
+=========================== */
 
 .info{
 
-    margin-bottom:20px;
+    margin-top:20px;
 
 }
 
 .info label{
 
-    font-weight:bold;
+    font-weight:600;
 
-    display:block;
-
-    margin-bottom:8px;
+    color:#374151;
 
 }
 
 .box{
 
-    background:#f5f7fb;
+    margin-top:8px;
+
+    background:#f9fafb;
 
     padding:14px;
 
     border-radius:12px;
 
-    font-weight:bold;
+    border:1px solid #e5e7eb;
 
 }
 
-/* Rekening */
+/* ===========================
+   REKENING CARD
+=========================== */
 
 .rekening{
 
-    background:#eff6ff;
+    margin-top:25px;
 
-    border:2px dashed #93c5fd;
+    padding:25px;
 
-    border-radius:15px;
+    border-radius:18px;
 
-    padding:20px;
-
-    margin:20px 0;
+    background:linear-gradient(135deg,#eff6ff,#dbeafe);
 
     text-align:center;
 
 }
 
-.rekening h2{
+.bankLogo{
 
-    margin:10px 0;
+    font-size:42px;
+
+}
+
+#rekening{
+
+    letter-spacing:3px;
+
+    font-size:28px;
 
     color:#2563eb;
 
-    letter-spacing:2px;
-
 }
 
-#copyBtn{
-
-    margin-top:15px;
-
-}
-
-/* Upload */
+/* ===========================
+   UPLOAD
+=========================== */
 
 .upload{
 
-    margin:20px 0;
+    margin-top:25px;
 
 }
 
 .upload label{
 
+    font-weight:600;
+
     display:block;
 
     margin-bottom:10px;
-
-    font-weight:bold;
 
 }
 
@@ -266,69 +319,93 @@ input[type=file]{
 
     width:100%;
 
-    border:1px solid #ddd;
+    padding:12px;
 
     border-radius:12px;
 
-    padding:12px;
+    border:2px dashed #93c5fd;
+
+    cursor:pointer;
+
+    background:white;
 
 }
 
-/* Checkbox */
+/* ===========================
+   PREVIEW
+=========================== */
+
+#preview{
+
+    margin-top:15px;
+
+    border-radius:15px;
+
+    border:2px solid #dbeafe;
+
+}
+
+/* ===========================
+   CHECKBOX
+=========================== */
 
 .checkbox{
 
     display:flex;
 
+    gap:12px;
+
     align-items:center;
 
-    gap:10px;
-
-    margin:20px 0;
-
-}
-
-.checkbox input{
-
-    width:18px;
-
-    height:18px;
+    margin-top:25px;
 
 }
 
 .checkbox label{
 
-    cursor:pointer;
+    color:#374151;
 
 }
 
-/* Success */
+/* ===========================
+   SUCCESS
+=========================== */
 
-#success{
+.successIcon{
+
+    font-size:80px;
 
     text-align:center;
 
 }
 
-#success h1{
+#success h2{
 
-    font-size:70px;
-
-}
-
-#success p{
-
-    margin-top:15px;
+    margin-top:10px;
 
 }
 
-/* Responsive */
+/* ===========================
+   MOBILE
+=========================== */
 
 @media(max-width:480px){
 
 .card{
 
-padding:25px 20px;
+padding:24px;
+
+}
+
+h1{
+
+font-size:26px;
+
+}
+
+#rekening{
+
+font-size:24px;
 
 }
 
