@@ -1,0 +1,335 @@
+/* Reset */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+    background:#f5f7fb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:100vh;
+
+    padding:20px;
+
+}
+
+/* Container */
+
+.container{
+
+    width:100%;
+    max-width:430px;
+
+}
+
+/* Card */
+
+.card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:30px 25px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+    animation:fade .35s;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Heading */
+
+h1{
+
+    font-size:30px;
+
+    text-align:center;
+
+    color:#2563eb;
+
+    margin-bottom:10px;
+
+}
+
+h2{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+h3{
+
+    color:#2563eb;
+
+}
+
+p{
+
+    color:#666;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    line-height:1.5;
+
+}
+
+/* Select */
+
+select{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    outline:none;
+
+    margin-bottom:25px;
+
+}
+
+select:focus{
+
+    border-color:#2563eb;
+
+}
+
+/* Button */
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+button:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+
+}
+
+button:disabled{
+
+    background:#bdbdbd;
+
+    cursor:not-allowed;
+
+}
+
+/* Info */
+
+.info{
+
+    margin-bottom:20px;
+
+}
+
+.info label{
+
+    font-weight:bold;
+
+    display:block;
+
+    margin-bottom:8px;
+
+}
+
+.box{
+
+    background:#f5f7fb;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    font-weight:bold;
+
+}
+
+/* Rekening */
+
+.rekening{
+
+    background:#eff6ff;
+
+    border:2px dashed #93c5fd;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    margin:20px 0;
+
+    text-align:center;
+
+}
+
+.rekening h2{
+
+    margin:10px 0;
+
+    color:#2563eb;
+
+    letter-spacing:2px;
+
+}
+
+#copyBtn{
+
+    margin-top:15px;
+
+}
+
+/* Upload */
+
+.upload{
+
+    margin:20px 0;
+
+}
+
+.upload label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-weight:bold;
+
+}
+
+input[type=file]{
+
+    width:100%;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    padding:12px;
+
+}
+
+/* Checkbox */
+
+.checkbox{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:20px 0;
+
+}
+
+.checkbox input{
+
+    width:18px;
+
+    height:18px;
+
+}
+
+.checkbox label{
+
+    cursor:pointer;
+
+}
+
+/* Success */
+
+#success{
+
+    text-align:center;
+
+}
+
+#success h1{
+
+    font-size:70px;
+
+}
+
+#success p{
+
+    margin-top:15px;
+
+}
+
+/* Responsive */
+
+@media(max-width:480px){
+
+.card{
+
+padding:25px 20px;
+
+}
+
+}
