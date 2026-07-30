@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kas HMPS BD</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HALAMAN 1 -->
+    <section id="page1" class="card">
+
+        <h1>Kas HMPS BD</h1>
+
+        <p>Silakan pilih nama Anda</p>
+
+        <select id="nama">
+            <option value="">-- Pilih Nama --</option>
+
+            <option>Muhammad Adnin Mubarok</option>
+            <option>Sofyan Abdilah Wijaya</option>
+            <option>Rizky</option>
+            <option>Bagas</option>
+            <option>Fajar</option>
+            <option>Adit</option>
+
+        </select>
+
+        <button id="nextBtn">
+            Next →
+        </button>
+
+    </section>
+
+    <!-- HALAMAN 2 -->
+    <section id="page2" class="card hidden">
+
+        <h2>Konfirmasi Pembayaran</h2>
+
+        <div class="info">
+
+            <label>Nama</label>
+
+            <div id="namaTerpilih" class="box"></div>
+
+        </div>
+
+        <div class="rekening">
+
+            <p>Transfer ke</p>
+
+            <h3>BANK BCA</h3>
+
+            <h2 id="rekening">
+                1234567890
+            </h2>
+
+            <p>a.n HMPS Bisnis Digital</p>
+
+            <button id="copyBtn">
+                📋 Salin Nomor Rekening
+            </button>
+
+        </div>
+
+        <div class="upload">
+
+            <label>Upload Bukti Transfer</label>
+
+            <input
+                type="file"
+                id="bukti"
+                accept="image/*">
+
+        </div>
+
+        <div class="checkbox">
+
+            <input
+                type="checkbox"
+                id="check">
+
+            <label for="check">
+
+                Saya sudah melakukan transfer
+
+            </label>
+
+        </div>
+
+        <button id="submitBtn">
+
+            Kirim
+
+        </button>
+
+    </section>
+
+    <!-- HALAMAN BERHASIL -->
+
+    <section id="success" class="card hidden">
+
+        <h1>✅</h1>
+
+        <h2>Berhasil</h2>
+
+        <p>
+
+            Terima kasih.
+
+            Konfirmasi pembayaran berhasil dikirim.
+
+        </p>
+
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
