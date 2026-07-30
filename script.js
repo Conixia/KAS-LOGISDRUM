@@ -225,29 +225,15 @@ submitBtn.onclick = async ()=>{
 
     try{
 
-        const response = await fetch(API_URL,{
-
-            method:"POST",
-
-            headers:{
-
-                "Content-Type":"application/json"
-
-            },
-
-            body:JSON.stringify({
-
-                nama:nama.value,
-
-                image:compressedBase64,
-
-                filename:bukti.files[0].name,
-
-                size:compressedSize
-
-            })
-
-        });
+const response = await fetch(API_URL,{
+    method:"POST",
+    body:JSON.stringify({
+        nama:nama.value,
+        image:compressedBase64,
+        filename:bukti.files[0].name,
+        size:compressedSize
+    })
+});
 
         const result = await response.json();
 
