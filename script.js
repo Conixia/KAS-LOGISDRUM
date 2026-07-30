@@ -36,13 +36,19 @@ const check = document.getElementById("check");
 // PREVIEW
 // =========================
 
+const previewContainer = document.createElement("div");
+
+previewContainer.className = "preview-container";
+
+previewContainer.style.display = "none";
+
 const preview = document.createElement("img");
 
 preview.id = "preview";
 
-preview.style.display = "none";
+previewContainer.appendChild(preview);
 
-bukti.parentNode.appendChild(preview);
+bukti.parentNode.appendChild(previewContainer);
 
 
 const info = document.createElement("div");
@@ -160,7 +166,7 @@ bukti.onchange = async () => {
 
             preview.src = canvas.toDataURL("image/jpeg",QUALITY);
 
-            preview.style.display="block";
+            previewContainer.style.display="flex";
 
             compressedSize = Math.round(
 
