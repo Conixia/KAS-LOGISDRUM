@@ -1,12 +1,19 @@
-// ======================================
+// =========================
 // KONFIGURASI
-// ======================================
+// =========================
 
 const API_URL = "https://script.google.com/macros/s/AKfycbxUuApNsbLOHAR6VMKpCkw7FXmN2uXkAO7Uso1FoPw4BJUQ7Q892p5fsJDRHrqAnpO5mQ/exec";
 
-// ======================================
+// Maksimal sisi gambar setelah dikompres
+const MAX_WIDTH = 1280;
+
+// Kualitas JPG (0 - 1)
+const QUALITY = 0.8;
+
+
+// =========================
 // ELEMENT
-// ======================================
+// =========================
 
 const page1 = document.getElementById("page1");
 const page2 = document.getElementById("page2");
@@ -24,200 +31,248 @@ const submitBtn = document.getElementById("submitBtn");
 const bukti = document.getElementById("bukti");
 const check = document.getElementById("check");
 
-// ======================================
-// PREVIEW GAMBAR
-// ======================================
+
+// =========================
+// PREVIEW
+// =========================
 
 const preview = document.createElement("img");
+
 preview.id = "preview";
-preview.style.width = "100%";
-preview.style.marginTop = "15px";
-preview.style.borderRadius = "12px";
+
 preview.style.display = "none";
 
 bukti.parentNode.appendChild(preview);
 
-// ======================================
+
+const info = document.createElement("div");
+
+info.style.marginTop = "10px";
+info.style.textAlign = "center";
+info.style.color = "#666";
+
+bukti.parentNode.appendChild(info);
+
+
+// hasil kompres
+
+let compressedBase64 = "";
+
+let compressedSize = 0;
+
+
+// =========================
 // NEXT
-// ======================================
+// =========================
 
-nextBtn.addEventListener("click", () => {
+nextBtn.onclick = () => {
 
-    if (nama.value === "") {
-        alert("Silakan pilih nama terlebih dahulu.");
+    if (nama.value == "") {
+
+        alert("Silakan pilih nama.");
+
         return;
+
     }
 
-    namaTerpilih.textContent = nama.value;
+    namaTerpilih.innerText = nama.value;
 
     page1.classList.add("hidden");
+
     page2.classList.remove("hidden");
 
-});
+};
 
-// ======================================
+
+// =========================
 // COPY REKENING
-// ======================================
+// =========================
 
-copyBtn.addEventListener("click", async () => {
+copyBtn.onclick = async () => {
 
-    try {
+    await navigator.clipboard.writeText(
 
-        await navigator.clipboard.writeText(rekening.textContent);
+        rekening.innerText
 
-        copyBtn.textContent = "✅ Nomor rekening berhasil disalin";
+    );
 
-        setTimeout(() => {
+    copyBtn.innerText = "✅ Nomor Rekening Disalin";
 
-            copyBtn.textContent = "📋 Salin Nomor Rekening";
+    setTimeout(() => {
 
-        }, 2000);
+        copyBtn.innerText = "📋 Salin Nomor Rekening";
 
-    } catch {
+    },2000);
 
-        alert("Browser tidak mendukung fitur salin otomatis.");
+};
 
-    }
 
-});
+// =========================
+// PILIH GAMBAR
+// =========================
 
-// ======================================
-// PREVIEW FILE
-// ======================================
-
-bukti.addEventListener("change", function () {
-
-    const file = this.files[0];
-
-    if (!file) {
-
-        preview.style.display = "none";
-        return;
-
-    }
-
-    // Validasi tipe file
-
-    const allowed = ["image/jpeg", "image/png", "image/jpg"];
-
-    if (!allowed.includes(file.type)) {
-
-        alert("File harus berupa JPG atau PNG.");
-
-        this.value = "";
-
-        preview.style.display = "none";
-
-        return;
-
-    }
-
-    // Maksimal 5MB
-
-    if (file.size > 5 * 1024 * 1024) {
-
-        alert("Ukuran gambar maksimal 5 MB.");
-
-        this.value = "";
-
-        preview.style.display = "none";
-
-        return;
-
-    }
-
-    preview.src = URL.createObjectURL(file);
-    preview.style.display = "block";
-
-});
-
-// ======================================
-// SUBMIT
-// ======================================
-
-submitBtn.addEventListener("click", kirimData);
-
-async function kirimData() {
-
-    if (!check.checked) {
-
-        alert("Silakan centang konfirmasi transfer.");
-
-        return;
-
-    }
-
-    if (bukti.files.length === 0) {
-
-        alert("Silakan upload bukti transfer.");
-
-        return;
-
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Mengirim...";
+bukti.onchange = async () => {
 
     const file = bukti.files[0];
 
+    if(!file) return;
+
+    if(file.size > 8 * 1024 * 1024){
+
+        alert("Ukuran gambar maksimal 8 MB.");
+
+        bukti.value="";
+
+        return;
+
+    }
+
     const reader = new FileReader();
 
-    reader.onload = async function () {
+    reader.onload = function(e){
 
-        const base64 = reader.result.split(",")[1];
+        const img = new Image();
 
-        const payload = {
+        img.onload = function(){
 
-            nama: nama.value,
-            filename: file.name,
-            image: base64
+            let width = img.width;
+            let height = img.height;
 
-        };
+            if(width > MAX_WIDTH){
 
-        try {
-
-            const response = await fetch(API_URL, {
-
-                method: "POST",
-
-                headers: {
-
-                    "Content-Type": "application/json"
-
-                },
-
-                body: JSON.stringify(payload)
-
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-
-                page2.classList.add("hidden");
-                success.classList.remove("hidden");
-
-            } else {
-
-                throw new Error("Server gagal memproses data.");
+                height = height * MAX_WIDTH / width;
+                width = MAX_WIDTH;
 
             }
 
+            const canvas = document.createElement("canvas");
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext("2d");
+
+            ctx.drawImage(img,0,0,width,height);
+
+            compressedBase64 = canvas
+            .toDataURL("image/jpeg",QUALITY)
+            .split(",")[1];
+
+            preview.src = canvas.toDataURL("image/jpeg",QUALITY);
+
+            preview.style.display="block";
+
+            compressedSize = Math.round(
+
+                (compressedBase64.length * 0.75)/1024
+
+            );
+
+            info.innerHTML = `
+
+            <br>
+
+            <b>${file.name}</b>
+
+            <br>
+
+            Ukuran Asli :
+            ${(file.size/1024/1024).toFixed(2)} MB
+
+            <br>
+
+            Setelah Kompres :
+            ${compressedSize} KB ✅
+
+            `;
+
         }
 
-        catch (err) {
+        img.src = e.target.result;
 
-            console.error(err);
-
-            alert("Terjadi kesalahan saat mengirim data.");
-
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Kirim";
-
-        }
-
-    };
+    }
 
     reader.readAsDataURL(file);
 
-}
+};
+
+
+// =========================
+// SUBMIT
+// =========================
+
+submitBtn.onclick = async ()=>{
+
+    if(!check.checked){
+
+        alert("Centang konfirmasi transfer.");
+
+        return;
+
+    }
+
+    if(compressedBase64==""){
+
+        alert("Upload bukti transfer.");
+
+        return;
+
+    }
+
+    submitBtn.disabled=true;
+
+    submitBtn.innerText="Mengupload...";
+
+    try{
+
+        const response = await fetch(API_URL,{
+
+            method:"POST",
+
+            headers:{
+
+                "Content-Type":"application/json"
+
+            },
+
+            body:JSON.stringify({
+
+                nama:nama.value,
+
+                image:compressedBase64,
+
+                filename:bukti.files[0].name,
+
+                size:compressedSize
+
+            })
+
+        });
+
+        const result = await response.json();
+
+        if(result.success){
+
+            page2.classList.add("hidden");
+
+            success.classList.remove("hidden");
+
+        }else{
+
+            throw new Error();
+
+        }
+
+    }
+
+    catch(e){
+
+        alert("Upload gagal.");
+
+        submitBtn.disabled=false;
+
+        submitBtn.innerText="Kirim";
+
+    }
+
+};
