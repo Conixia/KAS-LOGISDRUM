@@ -2,7 +2,7 @@
 // KONFIGURASI
 // =========================
 
-const API_URL = "https://script.google.com/macros/s/AKfycbwwNd2qzgGoYs1OZDlO9RIsjIMFa1p09N1TEjTn8fJEJiJ4FEDTyrI0MGL0bEJDR_Rwpg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwGaglB0zsuijxmRErCWtUSRoy_opG2HdwgLGL01BgYsQe6Lre7biZFN_h1NqJayRefnA/exec";
 
 // Maksimal sisi gambar setelah dikompres
 const MAX_WIDTH = 1280;
